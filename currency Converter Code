@@ -1,1 +1,49 @@
+#include <stdio.h>
+#include <string.h>
 
+float convert(float amount, float from_rate, float to_rate) {
+    // Convert from the base currency to USD, then to the target currency
+    float usd_amount = amount / from_rate;
+    return usd_amount * to_rate;
+}
+
+int main() {
+    float amount, result;
+    char currency_from[4], currency_to[4];
+
+    printf("Enter the amount: ");
+    scanf("%f", &amount);
+
+    printf("Enter the currency to convert from (e.g., USD): ");
+    scanf("%s", currency_from);
+
+    printf("Enter the currency to convert to (e.g., EUR): ");
+    scanf("%s", currency_to);
+
+    // Currency codes and exchange rates relative to USD
+    char* currency_codes[23] = {"USD", "EUR", "GBP", "JPY", "CNY", "INR", "CAD", "AUD", "CHF", "SAR", "EGP", "BRL", "KRW", "RUB", "TRY", "ZAR", "IDR", "NGN", "SEK", "NZD", "AED", "QAR", "KWD"};
+    float exchange_rates[23] = {1, 0.87, 0.77, 108.79, 6.45, 75.02, 1.28, 1.38, 0.93, 3.75, 15.72, 5.31, 1132.76, 77.57, 13.75, 15.69, 14423.74, 405.36, 8.95, 8.94, 3.67, 3.64, 0.30};
+
+    // Find the index of the entered currencies in the currency_codes array
+    int index_from = -1, index_to = -1;
+    for (int i = 0; i < 23; i++) {
+        if (strcmp(currency_from, currency_codes[i]) == 0) {
+            index_from = i;
+        }
+        if (strcmp(currency_to, currency_codes[i]) == 0) {
+            index_to = i;
+        }
+    }
+
+    // Check if both currencies were found
+    if (index_from == -1 || index_to == -1) {
+        printf("Invalid currency input\n");
+        return 1;
+    }
+
+    result = convert(amount, exchange_rates[index_from], exchange_rates[index_to]);
+
+    printf("Converted amount: %.2f %s\n", result, currency_to);
+
+    return 0;
+}
