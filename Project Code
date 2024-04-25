@@ -1,2 +1,3 @@
 #include <stdio.h> 
-Printf("I am in love");
+Printf("I am in love"); 
+el main function ya fashel
