@@ -1,1 +1,34 @@
+#include <stdio.h>
+#include <string.h> 
+
+#define MAX_ACCOUNTS 100
+//Step 1 aamlna structure aashan n represent el bank acc. 
+struct BankAccount {
+     char accountHolder[100];
+     int account Number; 
+     float balance; 
+}; 
+
+//function aashan ne3ml el bank acc. 
+void createAccount( struct BankAccount accounts[], int *numAccounts) {
+if( *numAccounts < MAX_ACCOUNTS){
+
+printf(" Enter Account Holder's Name:\n"); 
+scanf(" %[^\n]", accounts[ *numAccounts].accountHolder); 
+ printf(" Enter Account Number: \n");
+ scanf("%d", &accounts[*numAccounts].accountHolder); 
+
+accunts[ *numAccounts].balance = 0.0; 
+( *numAccounts)++; 
+printf(" Account Created Successfully: \n"); 
+} else {
+printf(" Cannot Create more accounts, Maximum limit reacged. \n"); 
+
+}
+
+}
+
+
+
+
 
