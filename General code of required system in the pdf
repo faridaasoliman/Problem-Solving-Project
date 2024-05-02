@@ -263,4 +263,19 @@ int accountNumber;
 
 void erase() {
     // Implementation for deleting a customer account
+    int accountNumber;
+    printf("Enter account number to delete: ");
+    scanf("%d", &accountNumber);
+
+    for (int i = 0; i < numCustomers; i++) {
+        if (customers[i].id == accountNumber) {
+            // Move the last element to the position of the deleted element
+            customers[i] = customers[numCustomers - 1];
+            numCustomers--;
+            printf("Account deleted successfully.\n");
+            return;
+        }
+    }
+    printf("Account not found.\n");
+
 }
