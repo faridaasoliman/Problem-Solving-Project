@@ -89,6 +89,21 @@ int main() {
 void new_acc() {
     // Implementation for creating a new customer account
     // Ask for personal and banking details and store them in the customers array
+ printf("Enter customer details:\n");
+    printf("Name: ");
+    scanf(" %[^\n]", customers[numCustomers].name);
+    printf("Date of Birth (YYYY-MM-DD): ");
+    scanf("%s", customers[numCustomers].dob);
+    printf("Address: ");
+    scanf(" %[^\n]", customers[numCustomers].address);
+    printf("Phone Number: ");
+    scanf("%lld", &customers[numCustomers].phone);
+    printf("Initial Deposit: ");
+    scanf("%f", &customers[numCustomers].balance);
+    printf("Account Type (saving, current, fixed for 1 year, fixed for 2 years, fixed for 3 years): ");
+    scanf(" %[^\n]", customers[numCustomers].accountType);
+    printf("New account created successfully!\n");
+    numCustomers++;
 }
 
 void transact() {
