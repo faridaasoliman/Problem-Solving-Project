@@ -1,34 +1,111 @@
-#include <stdio.h>
-#include <string.h> 
-
+#include ‹stdio.h>
+#include ‹string.h›
 #define MAX_ACCOUNTS 100
-//Step 1 aamlna structure aashan n represent el bank acc. 
+// Structure to represent a bank account
 struct BankAccount {
-     char accountHolder[100];
-     int account Number; 
-     float balance; 
-}; 
-
-//function aashan ne3ml el bank acc. 
-void createAccount( struct BankAccount accounts[], int *numAccounts) {
-if( *numAccounts < MAX_ACCOUNTS){
-
-printf(" Enter Account Holder's Name:\n"); 
-scanf(" %[^\n]", accounts[ *numAccounts].accountHolder); 
- printf(" Enter Account Number: \n");
- scanf("%d", &accounts[*numAccounts].accountHolder); 
-
-accunts[ *numAccounts].balance = 0.0; 
-( *numAccounts)++; 
-printf(" Account Created Successfully: \n"); 
+char accountHolder [100]; int accountNumber;
+float balance;
+...
+｝；
+// Function to create a new bank account
+void createAccount(struct BankAccount accounts [],
+int *numAccounts) {
+if (*numAccounts < MAX_ACCOUNTS) {
+printf( "Enter account holder name: ");
+scanf(" %[^\n]", accounts [*numAccounts]
+•accountHolder);
+printf( "Enter account number: ");
+scanf ("%d", &accounts [*numAccounts]
+•accountNumber);
+accounts [*numAccounts].balance = 0.0;
+(*numAccounts) ++;
+printf("Account created successfully. \n");
 } else {
-printf(" Cannot Create more accounts, Maximum limit reacged. \n"); 
+printf("Cannot create more accounts.
+Maximum limit reached. \n");
+} 
+} 
+void deposit(struct BankAccount accounts [], int numAccounts, int accountNumber, float amount for (int i = 0; i ‹ numAccounts; i++) {
+if (accounts [i]-accountNumber == accountNumber) {
+accounts [1]. balance += amount; printf( "Deposit successful. New balance: %.2f\n", accounts [1]. balance); return;
+..
+2
+printf( "Account not found. Deposit failed. \n");
+// Function to perform a withdrawal from a bankaccount
+void withdraw(struct BankAccount accounts [], int numAccounts, int accountNumber, float amount)( for (int i = 0; i ‹ numAccounts; i++) {
+if (accounts [i]-accountNumber == accountNumber) {
+1f（amount <= accounts ［1］.balance） t
+accounts [i].balance -= amount; printf("Withdrawal successful. New balance: %.2f\n",
+accounts [i]. balance);
+} else 1
+printf("Insufficient funds.Withdrawal failed. \n");
+｝
+return;
+printf("Account not found. Withdrawal failed. \n");
+void checkBalance(const struct BankAccount accounts [],
+int numAccounts, int accountNumber) {
 
+for (int i = 0; i ‹ numAccounts; i++) {
+if (accounts [i]-accountNumber == accountNumber) {
+printf("Account Holder: %s \nAccount Number: %d\n
+Balance: %.2f\n", accounts[i].accountHolder, accounts [1] .accountNumber, accounts [1]. balance); return;
 }
+3
+printf("Account not found. Unable to check balance. \n");
+int main) {
+struct BankAccount accounts [MAX_ACCOUNTS];
+int numAccounts = 0;
+int choice; int accountNumber;
+float amount;
+do 1
 
+printf("\nBank Management System\n");
+
+printf("1. Create a New Account\n");
+
+printf（"2. DepositIn"）；
+
+printf("3. Withdraw\n");
+
+printf("4. Check Balance\n");
+
+printf（"5. Exitln"）；
+
+printf("Enter your choice: ");
+
+
+scanf ("%d", &choice);
+switch (choice)
+case 1:
+break;
+createAccount (accounts, &numAccounts);
+case
+2:
+4
+printf("Enter account number for deposit: ");
+scanf ("%d", &accountNumber);
+printf"Enter deposit amount: "); scanf ("'%f", &amount);
+deposit (accounts, numAccounts, accountNumber, amount) ; break;
+case
+3:
+printf("Enter account number for withdrawal: ");
+scanf ("%d", &accountNumber);
+printf( "Enter withdrawal amount: ");
+scanf ("%f", &amount);
+withdraw(accounts, numAccounts, accountNumber, amount);
+break;
+case
+4:
+printf("Enter account number to check balance: ");
+scanf ("%d", &accountNumber);
+checkBalance(accounts, numAccounts, accountNumber);
+break;
+case
+5:
+break;
+default:
 }
-
-
-
-
-
+} while (choice |= 5);
+return 0;
+printf("Exiting the program. Thank you! \n");
+printf("Invalid choice. Please enter a valid option. \n");
