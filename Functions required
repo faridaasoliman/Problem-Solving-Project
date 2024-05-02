@@ -1,0 +1,204 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_CUSTOMERS 100
+#define MAX_NAME_LENGTH 50
+#define MAX_ADDRESS_LENGTH 100
+
+struct Customer {
+    int id;
+    char name[MAX_NAME_LENGTH];
+    char dob[11];
+    char address[MAX_ADDRESS_LENGTH];
+    long long int phone;
+    float balance;
+    char accountType[20];
+    int cardNumber;
+    float creditCardBalance;
+};
+
+struct Customer customers[MAX_CUSTOMERS];
+int numCustomers = 0;
+
+void new_acc() {
+    printf("Enter customer details:\n");
+    printf("Name: ");
+    scanf(" %[^\n]", customers[numCustomers].name);
+    printf("Date of Birth (YYYY-MM-DD): ");
+    scanf("%s", customers[numCustomers].dob);
+    printf("Address: ");
+    scanf(" %[^\n]", customers[numCustomers].address);
+    printf("Phone Number: ");
+    scanf("%lld", &customers[numCustomers].phone);
+    printf("Initial Deposit: ");
+    scanf("%f", &customers[numCustomers].balance);
+    printf("Account Type (saving, current, fixed for 1 year, fixed for 2 years, fixed for 3 years): ");
+    scanf(" %[^\n]", customers[numCustomers].accountType);
+    printf("New account created successfully!\n");
+    numCustomers++;
+}
+
+void transact() {
+    int accountNumber;
+    float amount;
+    char type;
+
+    printf("Enter account number: ");
+    scanf("%d", &accountNumber);
+    printf("Enter transaction type (d for deposit, w for withdrawal): ");
+    scanf(" %c", &type);
+
+    for (int i = 0; i < numCustomers; i++) {
+        if (customers[i].id == accountNumber) {
+            if (type == 'd') {
+                printf("Enter deposit amount: ");
+                scanf("%f", &amount);
+                customers[i].balance += amount;
+                printf("Deposit successful. New balance: %.2f\n", customers[i].balance);
+            } else if (type == 'w') {
+                printf("Enter withdrawal amount: ");
+                scanf("%f", &amount);
+                if (amount <= customers[i].balance) {
+                    customers[i].balance -= amount;
+                    printf("Withdrawal successful. New balance: %.2f\n", customers[i].balance);
+                } else {
+                    printf("Insufficient funds. Withdrawal failed.\n");
+                }
+            } else {
+                printf("Invalid transaction type.\n");
+            }
+            return;
+        }
+    }
+    printf("Account not found.\n");
+}
+
+void transfer() {
+    int senderAccount, receiverAccount;
+    float amount;
+
+    printf("Enter sender account number: ");
+    scanf("%d", &senderAccount);
+    printf("Enter receiver account number: ");
+    scanf("%d", &receiverAccount);
+
+    float *senderBalance = NULL;
+    float *receiverBalance = NULL;
+
+    for (int i = 0; i < numCustomers; i++) {
+        if (customers[i].id == senderAccount) {
+            senderBalance = &customers[i].balance;
+        } else if (customers[i].id == receiverAccount) {
+            receiverBalance = &customers[i].balance;
+        }
+    }
+
+    if (senderBalance != NULL && receiverBalance != NULL) {
+        printf("Enter transfer amount: ");
+        scanf("%f", &amount);
+        if (amount <= *senderBalance) {
+            *senderBalance -= amount;
+            *receiverBalance += amount;
+            printf("Transfer successful.\n");
+        } else {
+            printf("Insufficient funds. Transfer failed.\n");
+        }
+    } else {
+        printf("One or both accounts not found.\n");
+    }
+}
+
+void apply_for_card() {
+    int accountNumber;
+    printf("Enter account number: ");
+    scanf("%d", &accountNumber);
+
+    for (int i = 0; i < numCustomers; i++) {
+        if (customers[i].id == accountNumber) {
+            customers[i].cardNumber = rand() % 1000000;
+            customers[i].creditCardBalance = 0.0;
+            printf("Credit card applied successfully. Card number: %d\n", customers[i].cardNumber);
+            return;
+        }
+    }
+    printf("Account not found.\n");
+}
+
+void pay_ur_credit_card() {
+    int accountNumber;
+    float amount;
+    printf("Enter account number: ");
+    scanf("%d", &accountNumber);
+
+    for (int i = 0; i < numCustomers; i++) {
+        if (customers[i].id == accountNumber) {
+            printf("Current credit card balance: %.2f\n", customers[i].creditCardBalance);
+            printf("Enter amount to pay: ");
+            scanf("%f", &amount);
+            if (amount <= customers[i].creditCardBalance) {
+                customers[i].creditCardBalance -= amount;
+                printf("Payment successful. New credit card balance: %.2f\n", customers[i].creditCardBalance);
+            } else {
+                printf("Amount exceeds credit card balance. Payment failed.\n");
+            }
+            return;
+        }
+    }
+    printf("Account not found.\n");
+}
+
+void view_profile() {
+    int accountNumber;
+    printf("Enter account number: ");
+    scanf("%d", &accountNumber);
+
+    for (int i = 0; i < numCustomers; i++) {
+        if (customers[i].id == accountNumber) {
+            printf("Account Number: %d\n", customers[i].id);
+            printf("Name: %s\n", customers[i].name);
+            printf("Date of Birth: %s\n", customers[i].dob);
+            printf("Address: %s\n", customers[i].address);
+            printf("Phone Number: %lld\n", customers[i].phone);
+            printf("Balance: %.2f\n", customers[i].balance);
+            printf("Account Type: %s\n", customers[i].accountType);
+            printf("Credit Card Number: %d\n", customers[i].cardNumber);
+            printf("Credit Card Balance: %.2f\n", customers[i].creditCardBalance);
+            return;
+        }
+    }
+    printf("Account not found.\n");
+}
+
+void bank_statement() {
+    int accountNumber;
+    printf("Enter account number: ");
+    scanf("%d", &accountNumber);
+
+    for (int i = 0; i < numCustomers; i++) {
+        if (customers[i].id == accountNumber) {
+            // Implement bank statement generation for the specified account
+            printf("Bank statement for account number %d:\n", accountNumber);
+            // Include deposit and withdrawal details
+            return;
+        }
+    }
+    printf("Account not found.\n");
+}
+
+void erase() {
+    int accountNumber;
+    printf("Enter account number to delete: ");
+    scanf("%d", &accountNumber);
+
+    for (int i = 0; i < numCustomers; i++) {
+        if (customers[i].id == accountNumber) {
+            // Move the last element to the position of the deleted element
+            customers[i] = customers[numCustomers - 1];
+            numCustomers--;
+            printf("Account deleted successfully.\n");
+            return;
+        }
+    }
+    printf("Account not found.\n");
+}
