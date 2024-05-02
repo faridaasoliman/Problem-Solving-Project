@@ -222,6 +222,25 @@ int accountNumber;
 
 void view_profile() {
     // Implementation for viewing customer's banking information
+ int accountNumber;
+    printf("Enter account number: ");
+    scanf("%d", &accountNumber);
+
+    for (int i = 0; i < numCustomers; i++) {
+        if (customers[i].id == accountNumber) {
+            printf("Account Number: %d\n", customers[i].id);
+            printf("Name: %s\n", customers[i].name);
+            printf("Date of Birth: %s\n", customers[i].dob);
+            printf("Address: %s\n", customers[i].address);
+            printf("Phone Number: %lld\n", customers[i].phone);
+            printf("Balance: %.2f\n", customers[i].balance);
+            printf("Account Type: %s\n", customers[i].accountType);
+            printf("Credit Card Number: %d\n", customers[i].cardNumber);
+            printf("Credit Card Balance: %.2f\n", customers[i].creditCardBalance);
+            return;
+        }
+    }
+    printf("Account not found.\n");
 }
 
 void bank_statement() {
