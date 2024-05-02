@@ -108,6 +108,38 @@ void new_acc() {
 
 void transact() {
     // Implementation for depositing and withdrawing money from a customer account
+int accountNumber;
+    float amount;
+    char type;
+
+    printf("Enter account number: ");
+    scanf("%d", &accountNumber);
+    printf("Enter transaction type (d for deposit, w for withdrawal): ");
+    scanf(" %c", &type);
+
+    for (int i = 0; i < numCustomers; i++) {
+        if (customers[i].id == accountNumber) {
+            if (type == 'd') {
+                printf("Enter deposit amount: ");
+                scanf("%f", &amount);
+                customers[i].balance += amount;
+                printf("Deposit successful. New balance: %.2f\n", customers[i].balance);
+            } else if (type == 'w') {
+                printf("Enter withdrawal amount: ");
+                scanf("%f", &amount);
+                if (amount <= customers[i].balance) {
+                    customers[i].balance -= amount;
+                    printf("Withdrawal successful. New balance: %.2f\n", customers[i].balance);
+                } else {
+                    printf("Insufficient funds. Withdrawal failed.\n");
+                }
+            } else {
+                printf("Invalid transaction type.\n");
+            }
+            return;
+        }
+    }
+    printf("Account not found.\n");
 }
 
 void transfer() {
