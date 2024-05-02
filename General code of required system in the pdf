@@ -144,6 +144,39 @@ int accountNumber;
 
 void transfer() {
     // Implementation for transferring money between customer accounts
+int senderAccount, receiverAccount;
+    float amount;
+
+    printf("Enter sender account number: ");
+    scanf("%d", &senderAccount);
+    printf("Enter receiver account number: ");
+    scanf("%d", &receiverAccount);
+
+    float *senderBalance = NULL;
+    float *receiverBalance = NULL;
+
+    for (int i = 0; i < numCustomers; i++) {
+        if (customers[i].id == senderAccount) {
+            senderBalance = &customers[i].balance;
+        } else if (customers[i].id == receiverAccount) {
+            receiverBalance = &customers[i].balance;
+        }
+    }
+
+    if (senderBalance != NULL && receiverBalance != NULL) {
+        printf("Enter transfer amount: ");
+        scanf("%f", &amount);
+        if (amount <= *senderBalance) {
+            *senderBalance -= amount;
+            *receiverBalance += amount;
+            printf("Transfer successful.\n");
+        } else {
+            printf("Insufficient funds. Transfer failed.\n");
+        }
+    } else {
+        printf("One or both accounts not found.\n");
+    }
+
 }
 
 void apply_for_card() {
