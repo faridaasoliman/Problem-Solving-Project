@@ -5,6 +5,14 @@
 #define MAX_CUSTOMERS 100
 #define MAX_NAME_LENGTH 50
 #define MAX_ADDRESS_LENGTH 100
+#define MAX_TRANSACTIONS 100
+
+// Structure for storing transaction details
+struct Transaction {
+    char date[11]; // Date of transaction in format YYYY-MM-DD
+    char type[10]; // Type of transaction: "Deposit" or "Withdrawal"
+    float amount;
+};
 
 // Structure for storing customer information
 struct Customer {
@@ -17,6 +25,8 @@ struct Customer {
     char accountType[20];
     int cardNumber;
     float creditCardBalance;
+    struct Transaction transactions[MAX_TRANSACTIONS];
+    int numTransactions;
 };
 
 // Array to store customer information
