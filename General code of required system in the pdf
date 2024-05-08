@@ -59,7 +59,7 @@ int main() {
         printf("7. Bank Statement\n");
         printf("8. Delete Account\n");
         printf("9. Currency Conversion\n"); 
-        printf("10. Exit");
+        printf("10. Exit \n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -158,25 +158,7 @@ void transact() {
     printf("Account not found.\n");
 }
 
-void transfer() {
-    int senderAccount, receiverAccount;
-    float amount;
 
-    printf("Enter sender account number: ");
-    scanf("%d", &senderAccount);
-    printf("Enter receiver account number: ");
-    scanf("%d", &receiverAccount);
-
-    float *senderBalance = NULL;
-    float *receiverBalance = NULL;
-
-    for (int i = 0; i < numCustomers; i++) {
-        if (customers[i].id == senderAccount) {
-            senderBalance = &customers[i].balance;
-        } else if (customers[i].id == receiverAccount) {
-            receiverBalance = &customers[i].balance;
-        }
-    }
 
 void transfer() {
     // Implementation for transferring money between customer accounts
