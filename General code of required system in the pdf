@@ -126,46 +126,57 @@ void new_acc() {
 void transact() {
     int accountNumber;
     float amount;
-    char type[10];
+    char type;
 
     printf("Enter account number: ");
     scanf("%d", &accountNumber);
-    printf("Enter transaction type (Deposit or Withdrawal): ");
-    scanf("%s", type);
+    printf("Enter transaction type (d for deposit, w for withdrawal): ");
+    scanf(" %c", &type);
 
     for (int i = 0; i < numCustomers; i++) {
         if (customers[i].id == accountNumber) {
-            // Ensure sufficient balance for withdrawal
-            if (strcmp(type, "Withdrawal") == 0) {
+            if (type == 'd') {
+                printf("Enter deposit amount: ");
+                scanf("%f", &amount);
+                customers[i].balance += amount;
+                printf("Deposit successful. New balance: %.2f\n", customers[i].balance);
+            } else if (type == 'w') {
                 printf("Enter withdrawal amount: ");
                 scanf("%f", &amount);
-                if (amount > customers[i].balance) {
+                if (amount <= customers[i].balance) {
+                    customers[i].balance -= amount;
+                    printf("Withdrawal successful. New balance: %.2f\n", customers[i].balance);
+                } else {
                     printf("Insufficient funds. Withdrawal failed.\n");
-                    return;
                 }
-            } else if (strcmp(type, "Deposit") != 0) {
-                printf("Invalid transaction type.\n");
-                return;
-            }
-            // Add transaction to the customer's transaction history
-            strcpy(customers[i].transactions[customers[i].numTransactions].type, type);
-            printf("Enter transaction amount: ");
-            scanf("%f", &customers[i].transactions[customers[i].numTransactions].amount);
-            // Update transaction date (can be obtained from system or input)
-            strcpy(customers[i].transactions[customers[i].numTransactions].date, "2024-05-10");
-            // Increment number of transactions
-            customers[i].numTransactions++;
-            // Update account balance
-            if (strcmp(type, "Deposit") == 0) {
-                customers[i].balance += amount;
             } else {
-                customers[i].balance -= amount;
+                printf("Invalid transaction type.\n");
             }
-            printf("%s successful. New balance: %.2f\n", type, customers[i].balance);
             return;
         }
+    }
     printf("Account not found.\n");
 }
+
+void transfer() {
+    int senderAccount, receiverAccount;
+    float amount;
+
+    printf("Enter sender account number: ");
+    scanf("%d", &senderAccount);
+    printf("Enter receiver account number: ");
+    scanf("%d", &receiverAccount);
+
+    float *senderBalance = NULL;
+    float *receiverBalance = NULL;
+
+    for (int i = 0; i < numCustomers; i++) {
+        if (customers[i].id == senderAccount) {
+            senderBalance = &customers[i].balance;
+        } else if (customers[i].id == receiverAccount) {
+            receiverBalance = &customers[i].balance;
+        }
+    }
 
 void transfer() {
     // Implementation for transferring money between customer accounts
