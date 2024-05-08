@@ -22,6 +22,7 @@ struct Customer {
 // Array to store customer information
 struct Customer customers[MAX_CUSTOMERS];
 int numCustomers = 0;
+int lastAccountId = 1000;
 
 // Function prototypes
 void new_acc();
@@ -107,8 +108,6 @@ void new_acc() {
     scanf("%f", &customers[numCustomers].balance);
     printf("Enter Account Type, Choices are: \n (saving, current, fixed for 1 year, fixed for 2 years, fixed for 3 years): ");
     scanf(" %[^\n]", customers[numCustomers].accountType);
-    printf("New account created successfully!\n");
-    numCustomers++;
     customers[numCustomers].id = lastAccountId++;
     
     printf("New account created successfully! Account Number: %d\n", customers[numCustomers].id);
