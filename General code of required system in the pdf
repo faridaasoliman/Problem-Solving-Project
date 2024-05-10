@@ -102,7 +102,7 @@ void authenticate() {
     }
 }
 
-void new_account() {
+void new_acc() {
     struct Customer newCustomer;
 
     printf("Enter customer details:\n");
