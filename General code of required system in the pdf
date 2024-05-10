@@ -122,7 +122,7 @@ void new_acc() {
     scanf("%s", newCustomer.password); // Set password for the new account
     newCustomer.id = rand() % 1000000; // Generate a random account number
     customers[numCustomers++] = newCustomer;
-    printf("New account created successfully!\n");
+    printf("New account created successfully! Account Number: %d\n", newCustomer.id);
     menu();
 }
 void menu() {
