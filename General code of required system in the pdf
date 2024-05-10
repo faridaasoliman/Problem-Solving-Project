@@ -102,26 +102,28 @@ int main() {
     return 0;
 }
 
-void new_acc() {
-    // Implementation for creating a new customer account
-    // Ask for personal and banking details and store them in the customers array
- printf("Enter customer details:\n");
+void new_account() {
+    struct Customer newCustomer;
+
+    printf("Enter customer details:\n");
     printf("Name: ");
-    scanf(" %[^\n]", customers[numCustomers].name);
+    scanf(" %[^\n]", newCustomer.name);
     printf("Date of Birth (YYYY-MM-DD): ");
-    scanf("%s", customers[numCustomers].dob);
+    scanf("%s", newCustomer.dob);
     printf("Address: ");
-    scanf(" %[^\n]", customers[numCustomers].address);
+    scanf(" %[^\n]", newCustomer.address);
     printf("Phone Number: ");
-    scanf("%lld", &customers[numCustomers].phone);
+    scanf("%lld", &newCustomer.phone);
     printf("Initial Deposit: ");
-    scanf("%f", &customers[numCustomers].balance);
-    printf("Enter Account Type, Choices are: \n (saving, current, fixed for 1 year, fixed for 2 years, fixed for 3 years): ");
-    scanf(" %[^\n]", customers[numCustomers].accountType);
-    customers[numCustomers].id = lastAccountId++;
-    
-    printf("New account created successfully! Account Number: %d\n", customers[numCustomers].id);
-    numCustomers++;
+    scanf("%f", &newCustomer.balance);
+    printf("Account Type (saving, current, fixed for 1 year, fixed for 2 years, fixed for 3 years): ");
+    scanf(" %[^\n]", newCustomer.accountType);
+    printf("Set Password: ");
+    scanf("%s", newCustomer.password); // Set password for the new account
+    newCustomer.id = rand() % 1000000; // Generate a random account number
+    customers[numCustomers++] = newCustomer;
+    printf("New account created successfully!\n");
+    menu();
 }
 void transact() {
     int accountNumber;
