@@ -141,8 +141,9 @@ void menu() {
         printf("8. Delete Account\n");
         printf("9. Currency Conversion\n");
         printf("10. Apply for Loan\n");
-        printf("11. Pay Loan\n");
-        printf("12. Exit\n");
+        printf("11. Pay Loan\n"); 
+        printf("12. Create an Account\n");
+        printf("13. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -181,7 +182,10 @@ void menu() {
                 pay_loan();
                 break;
             case 12:
-                printf("Exiting program. Goodbye!\n");
+                new_acc();
+                break;
+             case 13:
+                printf(" Exiting System, Goodbye!");
                 break;
             default:
                 printf("Invalid choice. Please try again.\n");
@@ -206,12 +210,24 @@ void transact() {
                 scanf("%f", &amount);
                 customers[i].balance += amount;
                 printf("Deposit successful. New balance: %.2f\n", customers[i].balance);
+
+                // Record transaction
+                strcpy(customers[i].transactions[customers[i].numTransactions].date, "current_date"); // Replace "current_date" with actual date
+                strcpy(customers[i].transactions[customers[i].numTransactions].type, "Deposit");
+                customers[i].transactions[customers[i].numTransactions].amount = amount;
+                customers[i].numTransactions++;
             } else if (type == 'w') {
                 printf("Enter withdrawal amount: ");
                 scanf("%f", &amount);
                 if (amount <= customers[i].balance) {
                     customers[i].balance -= amount;
                     printf("Withdrawal successful. New balance: %.2f\n", customers[i].balance);
+
+                    // Record transaction
+                    strcpy(customers[i].transactions[customers[i].numTransactions].date, "current_date"); // Replace "current_date" with actual date
+                    strcpy(customers[i].transactions[customers[i].numTransactions].type, "Withdrawal");
+                    customers[i].transactions[customers[i].numTransactions].amount = -amount; // Negative amount for withdrawal
+                    customers[i].numTransactions++;
                 } else {
                     printf("Insufficient funds. Withdrawal failed.\n");
                 }
@@ -223,6 +239,7 @@ void transact() {
     }
     printf("Account not found.\n");
 }
+
 
 void change_account_details() {
    
@@ -277,7 +294,7 @@ void apply_for_loan() {
             newLoan.interestRate = interestRate;
             newLoan.duration = duration;
             newLoan.remainingPayments = duration;
-            newLoan.monthlyPayment = amount * (interestRate / 12) / (1 - pow(1 + interestRate / 12, -duration));
+        newLoan.monthlyPayment = amount * (interestRate / 12) / (1 - pow(1 + interestRate / 12, -duration));
             customers[i].loans[customers[i].numLoans++] = newLoan;
 
             printf("Loan applied successfully.\n");
@@ -431,7 +448,10 @@ void bank_statement() {
         if (customers[i].id == accountNumber) {
             printf("Bank statement for account number %d:\n", accountNumber);
 
+            // Print header
+            printf("Date\t\tType\t\tAmount\n");
            
+            // Print transactions
             for (int j = 0; j < customers[i].numTransactions; j++) {
                 printf("%s\t%s\t%.2f\n", customers[i].transactions[j].date,
                                            customers[i].transactions[j].type,
@@ -443,6 +463,8 @@ void bank_statement() {
     }
     printf("Account not found.\n");
 }
+
+  
 
 void erase() {
     
